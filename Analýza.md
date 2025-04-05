@@ -1,4 +1,4 @@
-Analýza teplotných záznamov pomocou Pythonu
+Analýza teplotných záznamov pomocou Pythonu:
 
 1. Úpvod
 Analyzujeme teplotné záznamy za obdobie 30 dní. Údaje boli získané na simuláciu skutočných denných meraní teploty s priemerom 15°C a štandardnou odchýlkou ​​5°C, ale napísal som aj kód na generovanie náhodných údajov. Cieľom analýzy je získať dôležité štatistické charakteristiky, vizualizovať rozdelenie teplôt a určiť trend ich vývoja.

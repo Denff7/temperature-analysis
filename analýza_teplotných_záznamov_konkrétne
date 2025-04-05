@@ -4,16 +4,32 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import linregress
 
-# git statusenerovanie simulovaných teplotných dát (30 dní)
-np.random.seed(42)
+# Nastavte ručne True alebo False
+manual_input = True  # Ak True, zadájte vlastné dáta; ak False, použijú sa náhodné
+
+# Ak manuálny vstup, zadajte vlastné teploty (30 dní)
+manual_temperatures = [
+    14.5, 16.2, 15.8, 13.9, 17.1,
+    16.8, 14.0, 15.2, 14.6, 16.3,
+    15.9, 14.4, 13.7, 15.5, 16.0,
+    17.3, 14.9, 15.6, 16.7, 14.2,
+    15.3, 16.5, 17.0, 15.0, 13.8,
+    16.1, 14.3, 15.7, 16.4, 15.1
+]  # Dĺžka zoznamu musí byť 30!
+
+# ==========================================
+
+# Vstup dát
 days = np.arange(1, 31)
-temperatures = np.random.normal(loc=15, scale=5, size=30)  # priemer 15°C, odchýlka 5°C
+
+if manual_input:
+    temperatures = np.array(manual_temperatures)
+else:
+    temperatures = np.random.normal(loc=15, scale=5, size=30)
 
 data = pd.DataFrame({'Day': days, 'Temperature': temperatures})
 
-# =============================================================================================
-
-# Výpočty základných štatistík
+# Základné štatistiky
 mean_temp = np.mean(temperatures)
 median_temp = np.median(temperatures)
 std_temp = np.std(temperatures)
@@ -26,19 +42,21 @@ trendline = slope * days + intercept
 # Vizualizácia dát
 plt.figure(figsize=(12, 6))
 
-# Histogram teplôt
+# Histogram
 plt.subplot(2, 2, 1)
+
 plt.hist(temperatures, bins=8, color='skyblue', edgecolor='black')
+
 plt.xlabel('Teplota (°C)')
 plt.ylabel('Frekvencia')
 plt.title('Histogram teplôt')
 
-# =============================================================================================
-
-# Čiarový graf teplôt
+# Čiarový graf s trendom
 plt.subplot(2, 2, 2)
+
 plt.plot(days, temperatures, marker='o', linestyle='-', color='red', label='Teplota')
 plt.plot(days, trendline, linestyle='--', color='blue', label='Trendová priamka')
+
 plt.xlabel('Deň')
 plt.ylabel('Teplota (°C)')
 plt.title('Teplotný trend')
@@ -46,17 +64,16 @@ plt.legend()
 
 # Boxplot
 plt.subplot(2, 2, 3)
+
 sns.boxplot(y=temperatures, color='lightgreen')
+
 plt.ylabel('Teplota (°C)')
 plt.title('Boxplot teplôt')
 
-# Zobrazenie
 plt.tight_layout()
 plt.show()
 
-# ==================================================================
-
-# Výstup štatistických výpočtov
+# Výstup štatistík
 print(f"Priemerná teplota: {mean_temp:.2f}°C")
 print(f"Medián teploty: {median_temp:.2f}°C")
 print(f"Smerodajná odchýlka: {std_temp:.2f}°C")
